@@ -33,7 +33,7 @@ This will be different on different operating systems.
   ### Linux
   1. Simple. Docker is native so open `/etc/hosts` and add
   
-      127.0.0.1 opencart.dev
+          127.0.0.1 opencart.dev
   
   
   ### Windows
@@ -41,15 +41,15 @@ This will be different on different operating systems.
   2. Copy this value, usually `192.168.99.100`
   3. Add this to your HOSTS file (usually) `C:/Windows/System32/drivers/etc/hosts`
   
-      192.168.99.100 opencart.dev
+          192.168.99.100 opencart.dev
 
 6. Visit http://opencart.dev/ :-)
 
 7. The OpenCart install is now really simple. 
   1. Create the `config.php` files in both `upload/` and `upload/admin/`.
   2. In the database configuration use the values in `docker-composer.yml`. Set 
-    - *hostname*: mysql
-    - *username*: opencart
-    - *password*: password
-    - *database*: opencart
+    - **hostname**: mysql
+    - **username**: opencart
+    - **password**: password
+    - **database**: opencart
   3. Boom! Should be done
