@@ -31,6 +31,15 @@ services:
     links:
       - php-fpm
 
+  apache:
+    build: ./apache
+    volumes_from:
+      - application
+    volumes:
+      - ./logs/apache:/var/log/apache2
+    ports:
+      - "80:80"
+
   mysql:
     image: mysql:latest
     volumes_from:
