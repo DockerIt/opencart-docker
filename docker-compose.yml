@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+
+  php-fpm:
+    build: ./php-fpm
+    volumes_from:
+      - application
+    expose:
+      - "9000"
+
+  application:
+    build: ./application
+    volumes:
+      - ../:/var/www/opencart
+
+  data:
+    build: ./data
+    volumes:
+      - /var/lib/mysql
+
+  nginx:
+    build: ./nginx
+    volumes_from:
+      - application
+    volumes:
+      - ./logs/nginx/:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - php-fpm
+
+  mysql:
+    build: ./mysql
+    volumes_from:
+        - data
+    ports:
+        - "3306:3306"
+    environment:
+        MYSQL_DATABASE: opencart
+        MYSQL_USER: opencart
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: root
