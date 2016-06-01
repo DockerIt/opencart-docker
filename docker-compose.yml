@@ -17,7 +17,7 @@ services:
   data:
     build: ./data
     volumes:
-      - /var/lib/mysql
+      - ./database/mysql:/var/lib/mysql
 
   nginx:
     build: ./nginx
@@ -32,13 +32,23 @@ services:
       - php-fpm
 
   mysql:
-    build: ./mysql
+    image: mysql:latest
     volumes_from:
-        - data
-    ports:
-        - "3306:3306"
+      - data
+    restart: always
     environment:
-        MYSQL_DATABASE: opencart
-        MYSQL_USER: opencart
-        MYSQL_PASSWORD: password
-        MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: opencart
+      MYSQL_USER: opencart
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+
+  mariadb:
+    image: mariadb:latest
+    volumes_from:
+      - data
+    restart: always
+    environment:
+      MYSQL_DATABASE: opencart
+      MYSQL_USER: opencart
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
