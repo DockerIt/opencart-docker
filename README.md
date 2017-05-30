@@ -7,7 +7,7 @@ This repository should make it super simple to run [Opencart](http://www.opencar
 2. Add the opencart-docker files:
   - if you are using Git already you could add it as a submodule:
       
-          $ git submodule https://github.com/DockerIt/opencart-docker.git
+          $ git submodule add https://github.com/DockerIt/opencart-docker.git
       
   - if not, either copy the files or clone into the project directory:
       
