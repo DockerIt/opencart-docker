@@ -10,26 +10,14 @@ services:
       - "9000"
 
   application:
-    build: ./application
+    image: tianon/true
     volumes:
-      - ../:/var/www/opencart
+      - ../:/var/www/html
 
   data:
     build: ./data
     volumes:
       - ./database/mysql:/var/lib/mysql
-
-  nginx:
-    build: ./nginx
-    volumes_from:
-      - application
-    volumes:
-      - ./logs/nginx/:/var/log/nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    links:
-      - php-fpm
 
   apache:
     build: ./apache
@@ -37,22 +25,14 @@ services:
       - application
     volumes:
       - ./logs/apache:/var/log/apache2
+      - ./apache/sites:/etc/apache2/sites-available
     ports:
       - "80:80"
+    depends_on:
+      - php-fpm
 
   mysql:
     image: mysql:latest
-    volumes_from:
-      - data
-    restart: always
-    environment:
-      MYSQL_DATABASE: opencart
-      MYSQL_USER: opencart
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: root
-
-  mariadb:
-    image: mariadb:latest
     volumes_from:
       - data
     restart: always

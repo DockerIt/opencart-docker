@@ -1,28 +1,19 @@
-FROM php:7.0-apache
+FROM webdevops/apache:ubuntu-16.04
 
-MAINTAINER Matthew Tonkin-Dunn <mattythebatty@gmail.com>
+MAINTAINER Eric Pfeiffer <computerfr33k@users.noreply.github.com>
 
-RUN apt-get update && apt-get install -y \
-	libfreetype6-dev \
-	libjpeg62-turbo-dev \
-	libmcrypt-dev \
-	libpng12-dev \
-    curl
+ARG PHP_SOCKET=php-fpm:9000
 
-# Install extensions using the helper script provided by the base image
-RUN docker-php-ext-install \
-	zip \
-	mcrypt \
-	pdo_mysql \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-	&& docker-php-ext-install -j$(nproc) gd
+ENV WEB_PHP_SOCKET=$PHP_SOCKET
 
-RUN usermod -u 1000 www-data
-RUN a2enmod rewrite
+ENV WEB_DOCUMENT_ROOT=/var/www/
 
-ADD apache2.conf /etc/apache2/apache2.conf
+EXPOSE 80 443
 
-WORKDIR /var/www/opencart
+WORKDIR /var/www/
 
-EXPOSE 80
-CMD ["apache2-foreground"]
+ADD vhost.conf /etc/apache2/sites-enabled/vhost.conf
+
+ENTRYPOINT ["/opt/docker/bin/entrypoint.sh"]
+
+CMD ["supervisord"]
