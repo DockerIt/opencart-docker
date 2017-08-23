@@ -8,11 +8,9 @@ This repository should make it super simple to run [Opencart](http://www.opencar
   - if you are using Git already you could add it as a submodule:
       
           $ git submodule add https://github.com/DockerIt/opencart-docker.git
-      
   - if not, either copy the files or clone into the project directory:
-      
-          $ git clone https://github.com/DockerIt/opencart-docker.git
 
+          $ git clone https://github.com/DockerIt/opencart-docker.git
 3. It should look a bit like this:
 
         |-- project-root
@@ -24,11 +22,15 @@ This repository should make it super simple to run [Opencart](http://www.opencar
         |   |-- changelog.md
         |   |-- etc...
 
-4. Now, in the opencart-docker folder, we want run it and serve Opencart. The simplest way is:
+4. Copy the .env-example to .env and make any changes to the environment variables that you want.
+
+        $ cp .env-example .env
+        
+5. Now, in the opencart-docker folder, we want run it and serve Opencart. The simplest way is:
         
         $ docker-compose up -d apache mysql
         
-5. Finally we need to be able to access the site. We need to put the docker ip address into the HOSTS file.
+6. Finally we need to be able to access the site. We need to put the docker ip address into the HOSTS file.
 This will be different on different operating systems.
   ### Linux
   1. Simple. Docker is native so open `/etc/hosts` and add
@@ -43,13 +45,14 @@ This will be different on different operating systems.
   
           192.168.99.100 opencart.dev
 
-6. Visit http://opencart.dev/ :-)
+7. Visit http://opencart.dev/ :-)
 
-7. The OpenCart install is now really simple. 
+8. The OpenCart install is now really simple. 
   1. Create the `config.php` files in both `upload/` and `upload/admin/`.
-  2. In the database configuration use the values in `docker-composer.yml`. Set 
-    - **hostname**: mysql
-    - **username**: opencart
-    - **password**: password
-    - **database**: opencart
-  3. Boom! Should be done
+  2. In the database configuration use the values in `.env`.
+  The defaults are:
+      - **hostname**: mysql
+      - **username**: opencart
+      - **password**: password
+      - **database**: opencart
+  3. Click continue and then OpenCart should install and you should be able to access your store! 
