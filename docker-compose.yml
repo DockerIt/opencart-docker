@@ -1,7 +1,6 @@
-version: '2'
+version: "2"
 
 services:
-
   php-fpm:
     build: ./php-fpm
     volumes_from:
@@ -12,7 +11,8 @@ services:
   application:
     image: tianon/true
     volumes:
-      - ../:/var/www/html
+      - ../upload:/var/www
+      - ../storage:/var/storage
 
   data:
     build: ./data
@@ -32,7 +32,7 @@ services:
       - php-fpm
 
   mysql:
-    image: mysql:latest
+    image: mysql:5.7
     volumes_from:
       - data
     restart: always
