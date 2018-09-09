@@ -12,7 +12,6 @@ services:
     image: tianon/true
     volumes:
       - ../upload:/var/www
-      - ../storage:/var/storage
 
   data:
     build: ./data
