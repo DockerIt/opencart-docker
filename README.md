@@ -4,9 +4,7 @@ This repository should make it simple to run [Opencart](http://www.opencart.com/
 
 ## Installation
 
-1.  Firstly, clone or download the opencart project.
-
-        If you are getting from Git then don't get from the master branch.. It may be unstable... Select a branch that is currently stable. The below branch worked for me however it may already be outdated by the time you read this.
+1.  Clone or download the opencart project files. If you are getting from Git then don't get from the master branch.. It may be unstable... Select a branch that is currently stable. The below branch worked for me however it may already be outdated by the time you read this.
 
         $ git clone -b 3.0.2.1_rc https://github.com/opencart/opencart.git my-opencart
 
@@ -85,6 +83,12 @@ chown -R www-data:www-data to the ../upload folder
         - **database**: opencart
 
 3.  You will get a message to move your storage directory. You can close this message out and move the directory when you get a chance.
+
+## Outstanding issues
+
+### Storage Message When entering the admin
+
+The automatic method is not working. If you guys have a better way to automatically handle the storage directory situation then please send me a pull request. Thanks!
 
 ## Notes
 
