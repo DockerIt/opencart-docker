@@ -1,6 +1,4 @@
-FROM php:7.0-fpm
-
-MAINTAINER Matthew Tonkin-Dunn <mattythebatty@gmail.com>
+FROM php:7.3-fpm
 
 ADD ./opencart.ini /usr/local/etc/php/conf.d
 ADD ./opencart.pool.conf /usr/local/etc/php-fpm.d/
@@ -9,7 +7,7 @@ RUN apt-get update && apt-get install -y \
 	libfreetype6-dev \
 	libjpeg62-turbo-dev \
 	libmcrypt-dev \
-	libpng12-dev \
+	libpng-dev \
     curl
 
 # Install extensions using the helper script provided by the base image
