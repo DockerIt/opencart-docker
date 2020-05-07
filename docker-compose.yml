@@ -4,38 +4,34 @@ services:
 
   php-fpm:
     build: ./php-fpm
-    volumes_from:
-      - application
+    volumes:
+      - ../:/var/www
     expose:
       - "9000"
-
-  application:
-    image: tianon/true
-    volumes:
-      - ../:/var/www/html
-
-  data:
-    build: ./data
-    volumes:
-      - ./database/mysql:/var/lib/mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USERNAME: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: ${MYSQL_DATABASE}
+      MYSQL_PORT: 3306
 
   apache:
     build: ./apache
-    volumes_from:
-      - application
     volumes:
       - ./logs/apache:/var/log/apache2
       - ./apache/sites:/etc/apache2/sites-available
+      - ../:/var/www
     ports:
       - "80:80"
     depends_on:
       - php-fpm
 
   mysql:
-    image: mysql:latest
-    volumes_from:
-      - data
-    restart: always
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/mysql:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
