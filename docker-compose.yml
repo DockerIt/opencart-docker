@@ -14,6 +14,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       DB_NAME: ${MYSQL_DATABASE}
       MYSQL_PORT: 3306
+    depends_on:
+      - mysql
 
   apache:
     build: ./apache
